@@ -7,7 +7,7 @@ export default ({ env }) => ({
       database: env('DATABASE_NAME', process.env.PROD ? process.env.DATABASE_NAME : 'postgres'),
       user: env('DATABASE_USERNAME', process.env.PROD ? process.env.DATABASE_USERNAME : 'postgres'),
       password: env('DATABASE_PASSWORD', process.env.PROD ? process.env.DATABASE_PASSWORD : 'password'),
-      ssl: env.bool('DATABASE_SSL', true),
+      ssl: { "rejectUnauthorized": false },
     },
   },
 });
