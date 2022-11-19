@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "instruments",
+  "info": {
+    "singularName": "instrument",
+    "pluralName": "instruments",
+    "displayName": "Instrument"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "events": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::event.event",
+      "mappedBy": "instruments"
+    },
+    "musicians": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::musician.musician",
+      "mappedBy": "instruments"
+    }
+  }
+}

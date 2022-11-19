@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "musicians",
+  "info": {
+    "singularName": "musician",
+    "pluralName": "musicians",
+    "displayName": "Musician",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fName": {
+      "type": "string",
+      "required": true
+    },
+    "lName": {
+      "type": "string",
+      "required": true
+    },
+    "instruments": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::instrument.instrument",
+      "inversedBy": "musicians"
+    },
+    "location": {
+      "type": "string",
+      "required": true
+    },
+    "notes": {
+      "type": "text"
+    },
+    "events": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::event.event",
+      "mappedBy": "musicians"
+    }
+  }
+}
