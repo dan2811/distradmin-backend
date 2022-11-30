@@ -33,11 +33,11 @@
     "notes": {
       "type": "text"
     },
-    "events": {
+    "jobs": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::event.event",
-      "mappedBy": "musicians"
+      "relation": "oneToMany",
+      "target": "api::job.job",
+      "mappedBy": "musician"
     }
   }
 }

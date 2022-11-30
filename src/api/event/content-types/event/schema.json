@@ -36,20 +36,8 @@
     "profit": {
       "type": "decimal"
     },
-    "instruments": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::instrument.instrument",
-      "inversedBy": "events"
-    },
     "notes": {
       "type": "text"
-    },
-    "musicians": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::musician.musician",
-      "inversedBy": "events"
     },
     "team": {
       "type": "string"
@@ -58,6 +46,12 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::package.package"
+    },
+    "jobs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::job.job",
+      "mappedBy": "event"
     }
   }
 }

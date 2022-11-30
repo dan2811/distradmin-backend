@@ -2,7 +2,7 @@
 
 import { factories } from '@strapi/strapi';
 
-export default factories.createCoreController("api::event.event", {
+export default factories.createCoreController("api::job.job", {
   async find(ctx) {
     const { data, meta } = await super.find(ctx);
     return convertToDataAndTotal(data, meta);

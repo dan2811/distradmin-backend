@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "jobs",
+  "info": {
+    "singularName": "job",
+    "pluralName": "jobs",
+    "displayName": "Job",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "musician": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::musician.musician",
+      "inversedBy": "jobs"
+    },
+    "event": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::event.event",
+      "inversedBy": "jobs"
+    },
+    "instrument": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::instrument.instrument",
+      "inversedBy": "jobs"
+    },
+    "md": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
