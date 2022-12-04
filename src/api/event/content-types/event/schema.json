@@ -52,6 +52,12 @@
       "relation": "oneToMany",
       "target": "api::job.job",
       "mappedBy": "event"
+    },
+    "sets": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::set.set",
+      "mappedBy": "event"
     }
   }
 }
