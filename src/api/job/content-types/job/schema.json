@@ -33,6 +33,15 @@
     "md": {
       "type": "boolean",
       "default": false
+    },
+    "wage": {
+      "type": "decimal",
+      "required": true
+    },
+    "hotelRequired": {
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }
