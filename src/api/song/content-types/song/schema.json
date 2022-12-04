@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "songs",
+  "info": {
+    "singularName": "song",
+    "pluralName": "songs",
+    "displayName": "Song"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "artist": {
+      "type": "string",
+      "required": true
+    },
+    "notes": {
+      "type": "string"
+    },
+    "sets": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::set.set",
+      "inversedBy": "songs"
+    }
+  }
+}
