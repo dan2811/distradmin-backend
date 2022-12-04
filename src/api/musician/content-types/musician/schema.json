@@ -38,6 +38,11 @@
       "relation": "oneToMany",
       "target": "api::job.job",
       "mappedBy": "musician"
+    },
+    "canMD": {
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }
