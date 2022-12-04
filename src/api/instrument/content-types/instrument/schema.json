@@ -4,7 +4,8 @@
   "info": {
     "singularName": "instrument",
     "pluralName": "instruments",
-    "displayName": "Instrument"
+    "displayName": "Instrument",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -13,7 +14,8 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true
+      "required": true,
+      "unique": true
     },
     "musicians": {
       "type": "relation",
