@@ -44,8 +44,9 @@
     },
     "package": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::package.package"
+      "relation": "manyToOne",
+      "target": "api::package.package",
+      "inversedBy": "events"
     },
     "jobs": {
       "type": "relation",
