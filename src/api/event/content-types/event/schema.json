@@ -59,6 +59,10 @@
       "relation": "oneToMany",
       "target": "api::set.set",
       "mappedBy": "event"
+    },
+    "googleDocId": {
+      "type": "string",
+      "unique": true
     }
   }
 }
