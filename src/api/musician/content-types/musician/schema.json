@@ -27,11 +27,10 @@
       "inversedBy": "musicians"
     },
     "location": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "notes": {
-      "type": "text"
+      "type": "string"
     },
     "jobs": {
       "type": "relation",

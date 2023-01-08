@@ -17,17 +17,17 @@
       "required": true,
       "unique": true
     },
-    "musicians": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::musician.musician",
-      "mappedBy": "instruments"
-    },
     "jobs": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::job.job",
       "mappedBy": "instrument"
+    },
+    "musicians": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::musician.musician",
+      "inversedBy": "instruments"
     }
   }
 }

@@ -24,11 +24,6 @@
       "type": "time",
       "required": true
     },
-    "musicians": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::musician.musician"
-    },
     "songs": {
       "type": "relation",
       "relation": "manyToMany",
