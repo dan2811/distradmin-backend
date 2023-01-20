@@ -16,6 +16,24 @@ export default factories.createCoreController("api::admin.admin", {
       return;
     }
   },
+  async check(ctx) {
+    const [endpoint, userEmail] = ctx.url.split("email=");
+    try {
+      interface admins {
+        results: [{ email: string, isAdmin: boolean; }],
+        pagination: object;
+      }
+      const admins: admins = await strapi.service("api::admin.admin").find({ fields: ["email", "isAdmin"] }) as admins;
+      if (admins.results.find((admin) => {
+        return admin.email === userEmail && admin.isAdmin === true;
+      })) {
+        return true;
+      }
+    } catch (e) {
+      ctx.body = e;
+      return;
+    }
+  }
 });
 
 
