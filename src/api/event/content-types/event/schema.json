@@ -25,16 +25,20 @@
     },
     "gross": {
       "type": "decimal",
-      "required": true
+      "required": false,
+      "default": 0
     },
     "deposit": {
-      "type": "decimal"
+      "type": "decimal",
+      "default": 0
     },
     "amountDue": {
-      "type": "decimal"
+      "type": "decimal",
+      "default": 0
     },
     "profit": {
-      "type": "decimal"
+      "type": "decimal",
+      "default": 0
     },
     "notes": {
       "type": "text"

@@ -21,9 +21,14 @@
       "type": "string",
       "required": true
     },
-    "isAdmin": {
-      "type": "boolean",
-      "default": false,
+    "role": {
+      "type": "enumeration",
+      "enum": [
+        "Musician",
+        "Admin",
+        "Super Admin"
+      ],
+      "default": "Musician",
       "required": true
     }
   }
