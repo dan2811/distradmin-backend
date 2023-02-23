@@ -4,7 +4,8 @@
   "info": {
     "singularName": "event-type",
     "pluralName": "event-types",
-    "displayName": "Event Type"
+    "displayName": "Event Type",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -19,7 +20,8 @@
     "events": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::event.event"
+      "target": "api::event.event",
+      "mappedBy": "event_type"
     }
   }
 }

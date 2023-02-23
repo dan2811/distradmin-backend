@@ -70,6 +70,12 @@
     },
     "type": {
       "type": "string"
+    },
+    "event_type": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::event-type.event-type",
+      "inversedBy": "events"
     }
   }
 }
