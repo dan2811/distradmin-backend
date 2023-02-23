@@ -1,11 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "event_types",
+  "collectionName": "types",
   "info": {
-    "singularName": "event-type",
-    "pluralName": "event-types",
-    "displayName": "Event Type",
-    "description": ""
+    "singularName": "type",
+    "pluralName": "types",
+    "displayName": "type"
   },
   "options": {
     "draftAndPublish": false
@@ -21,7 +20,7 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::event.event",
-      "mappedBy": "event_type"
+      "mappedBy": "type"
     }
   }
 }

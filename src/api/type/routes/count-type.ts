@@ -5,8 +5,8 @@ module.exports = {
     {
       // Path defined with a URL parameter
       method: "GET",
-      path: "/event-types/count",
-      handler: "event-type.count",
+      path: "/types/count",
+      handler: "type.count",
     },
   ],
 };

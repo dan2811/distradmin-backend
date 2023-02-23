@@ -69,12 +69,9 @@
       "unique": true
     },
     "type": {
-      "type": "string"
-    },
-    "event_type": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::event-type.event-type",
+      "target": "api::type.type",
       "inversedBy": "events"
     }
   }
