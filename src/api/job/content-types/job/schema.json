@@ -30,7 +30,7 @@
     },
     "wage": {
       "type": "decimal",
-      "required": true
+      "required": false
     },
     "hotelRequired": {
       "type": "boolean",
