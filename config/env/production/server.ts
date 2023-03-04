@@ -1,4 +1,4 @@
 export default ({ env }) => ({
-    url: env('MY_HEROKU_URL'),
+    url: env('STRAPI_DEPLOYMENT_URL', 'https://distradmin-backend.herokuapp.com'),
     proxy: true,
 });
