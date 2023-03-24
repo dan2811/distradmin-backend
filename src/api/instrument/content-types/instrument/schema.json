@@ -27,7 +27,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::musician.musician",
-      "inversedBy": "instruments"
+      "mappedBy": "instruments"
     }
   }
 }

@@ -12,10 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "client": {
-      "type": "string",
-      "required": true
-    },
     "date": {
       "type": "date",
       "required": true
@@ -73,6 +69,12 @@
       "relation": "manyToOne",
       "target": "api::type.type",
       "inversedBy": "events"
+    },
+    "client": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::client.client",
+      "mappedBy": "event"
     }
   }
 }
