@@ -62,6 +62,10 @@ export default factories.createCoreController("api::client.client", {
       return client;
     } catch (err) {
       console.log(JSON.stringify(err));
+      const { name, message, details } = err;
+      if (name === "ValidationError") {
+        return ctx.badRequest(message, details);
+      }
     }
   },
   async update(ctx) {
