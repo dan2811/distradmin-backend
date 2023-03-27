@@ -1,6 +1,7 @@
 "use strict";
 
 import { factories } from "@strapi/strapi";
+import { UserRole } from "../../types";
 
 export default factories.createCoreController("api::client.client", {
   async find(ctx) {
@@ -22,9 +23,19 @@ export default factories.createCoreController("api::client.client", {
     );
     const { id: adminId } = ctx.state.user;
 
-    console.log("adminId", adminId);
+    console.log(
+      `Admin with ID: ${adminId} is creating a new client called ${fName} ${lName} with email: ${email}`
+    );
 
     try {
+      const allRoles: UserRole[] = await strapi.plugins[
+        "users-permissions"
+      ].services.role.find();
+
+      const clientRole: UserRole = allRoles.find(
+        (role) => role.name === "client"
+      );
+
       const user = await strapi.plugins["users-permissions"].services.user.add({
         blocked: false,
         confirmed: true,
@@ -34,7 +45,7 @@ export default factories.createCoreController("api::client.client", {
         provider: "local",
         created_by: adminId,
         updated_by: adminId,
-        role: 3,
+        role: clientRole.id,
       });
 
       const client = await strapi.entityService.create("api::client.client", {
@@ -48,11 +59,35 @@ export default factories.createCoreController("api::client.client", {
         },
       });
 
-      console.log("CLIENT: ", client);
-
       return client;
     } catch (err) {
       console.log(JSON.stringify(err));
+    }
+  },
+  async update(ctx) {
+    const {
+      email,
+      newAccountPassword,
+      fName,
+      lName,
+      phone,
+      id: clientId,
+    } = ctx.request.body;
+
+    try {
+      await strapi.plugins["users-permissions"].services.user.edit(clientId, {
+        email,
+        newAccountPassword,
+      });
+      await strapi.entityService.update("api::client.client", clientId, {
+        data: {
+          fName,
+          lName,
+          phone,
+        },
+      });
+    } catch (error) {
+      console.error(error);
     }
   },
 });
