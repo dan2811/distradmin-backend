@@ -64,9 +64,11 @@ export default {
 
             const notification = {
               app_id: process.env.ONE_SIGNAL_APP_ID,
-              include_external_user_ids: usersToSendTo.map(
-                (user) => `${user.id}`
-              ),
+              include_external_user_ids: usersToSendTo.map((recipient) => {
+                if (recipient.id !== user.data.user.id) {
+                  return `${recipient.id}`;
+                }
+              }),
               data: { something: "something else" },
               contents: {
                 en: message,
