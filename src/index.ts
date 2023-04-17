@@ -69,9 +69,12 @@ export default {
                   return `${recipient.id}`;
                 }
               }),
-              data: { something: "something else" },
               contents: {
                 en: message,
+              },
+              name: "CHATS",
+              headings: {
+                en: `U+1F4AC ${user.data.user.email}`,
               },
             };
 
