@@ -75,6 +75,22 @@
       "relation": "oneToOne",
       "target": "api::client.client",
       "mappedBy": "event"
+    },
+    "clientCanEdit": {
+      "type": "boolean",
+      "default": true
+    },
+    "payments": {
+      "type": "json"
+    },
+    "notesFromClient": {
+      "type": "text"
+    },
+    "chats": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::chat.chat",
+      "mappedBy": "event"
     }
   }
 }
