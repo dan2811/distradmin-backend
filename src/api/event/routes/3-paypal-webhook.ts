@@ -4,9 +4,9 @@ module.exports = {
   routes: [
     {
       // Path defined with a URL parameter
-      method: "PUT",
-      path: "/events/update-payment",
-      handler: "event.updatePayment",
+      method: "POST",
+      path: "/events/paypal-webhook",
+      handler: "event.paypalWebhook",
     },
   ],
 };

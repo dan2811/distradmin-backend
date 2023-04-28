@@ -1,6 +1,7 @@
 import { createNotification } from "./PushNotifications/createNotification";
 import {
   getUsersInChat,
+  markMessageAsRead,
   removeUserFromArray,
   saveMessageToClientChat,
 } from "./chatHelpers";
@@ -74,7 +75,7 @@ export default {
               },
               name: "CHATS",
               headings: {
-                en: `U+1F4AC ${user.data.user.email}`,
+                en: `${user.data.user.email}`,
               },
             };
 
@@ -92,6 +93,18 @@ export default {
             { user: user.email, message, roomId },
             e
           );
+        }
+      });
+
+      socket.on("messageRead", async ({ userId, messageId }) => {
+        console.log("messageRead event received", { userId, messageId });
+        try {
+          markMessageAsRead(userId, messageId);
+        } catch (e) {
+          console.error("COULD NOT MARK MESSAGE AS READ", {
+            userIdThatReadMessage: userId,
+            messageId,
+          });
         }
       });
     });

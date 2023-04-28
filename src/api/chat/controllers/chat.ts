@@ -13,6 +13,7 @@ export default factories.createCoreController("api::chat.chat", {
       populate: {
         messages: {
           populate: {
+            id: true,
             sender: true,
             chat: true,
           },

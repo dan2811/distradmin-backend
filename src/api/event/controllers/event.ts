@@ -110,29 +110,19 @@ export default factories.createCoreController("api::event.event", {
 
     return deletedEvent;
   },
-  async updatePayment(ctx) {
-    const { request } = ctx;
-    console.log("REQUEST: ", request);
-    const usersEvents = await findMyEvents(ctx);
-    console.log("UPDATE PAYMENT", ctx);
-    const { data } = request;
-    const { user } = ctx.state;
+  async paypalWebhook(ctx) {
+    console.log("PAYPAL WEBHOOK FULL CTX: ", ctx);
 
-    console.log("req: ", JSON.parse(ctx.req.body));
+    // const [usersEvent] = await findMyEvents(ctx);
 
-    //get event ID from url or body
+    // //get previous event payments
+    // const previousPayments: { id: number; date: string; amount: number }[] =
+    //   usersEvent.payments;
 
-    //get previous event payments
-
-    //append new payment to previous payments JSON
-
-    //update the event payments
-
-    //return the new JSON for this events payment
-
-    // const entry = await strapi.entityService.update("api::article.article", 1, {
+    // //update the event payments
+    // return strapi.entityService.update("api::event.event", usersEvent.id, {
     //   data: {
-    //     payments: "xxx",
+    //     payments: [...previousPayments],
     //   },
     // });
   },

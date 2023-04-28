@@ -38,6 +38,11 @@
       "relation": "manyToOne",
       "target": "api::chat.chat",
       "inversedBy": "messages"
+    },
+    "hasRead": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
     }
   }
 }
