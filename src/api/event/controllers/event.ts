@@ -112,6 +112,8 @@ export default factories.createCoreController("api::event.event", {
   },
   async paypalWebhook(ctx) {
     console.log("PAYPAL WEBHOOK FULL CTX: ", ctx);
+    const raw = ctx.request.body[Symbol.for("unparsedBody")];
+    console.log("BODY: ", raw);
 
     // const [usersEvent] = await findMyEvents(ctx);
 
