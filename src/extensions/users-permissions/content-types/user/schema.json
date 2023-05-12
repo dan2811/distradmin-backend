@@ -74,6 +74,20 @@
       "relation": "oneToMany",
       "target": "api::message.message",
       "mappedBy": "sender"
+    },
+    "fName": {
+      "type": "string",
+      "required": true
+    },
+    "lName": {
+      "type": "string",
+      "required": true
+    },
+    "events": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::event.event",
+      "inversedBy": "clients"
     }
   }
 }

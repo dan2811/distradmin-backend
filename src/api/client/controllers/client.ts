@@ -2,6 +2,7 @@
 
 import { factories } from "@strapi/strapi";
 import { UserRole } from "../../types";
+import { createUser } from "../../lib/createUser";
 
 export default factories.createCoreController("api::client.client", {
   async find(ctx) {
@@ -18,37 +19,12 @@ export default factories.createCoreController("api::client.client", {
     }
   },
   async create(ctx) {
-    const { email, password, fName, lName, phone } = JSON.parse(
-      ctx.request.body
-    );
-    const { id: adminId } = ctx.state.user;
-
-    console.log(
-      `Admin with ID: ${adminId} is creating a new client called ${fName} ${lName} with email: ${email}`
-    );
-
-    try {
-      const allRoles: UserRole[] = await strapi.plugins[
-        "users-permissions"
-      ].services.role.find();
-
-      const clientRole: UserRole = allRoles.find(
-        (role) => role.name === "client"
-      );
-
-      const user = await strapi.plugins["users-permissions"].services.user.add({
-        blocked: false,
-        confirmed: true,
-        username: email,
-        email,
-        password,
-        provider: "local",
-        created_by: adminId,
-        updated_by: adminId,
-        role: clientRole.id,
-      });
-
-      const client = await strapi.entityService.create("api::client.client", {
+    const user = await createUser(ctx, "client");
+    console.log("THIS SHOULD BE JSON", ctx.request.body);
+    const { fName, lName, phone } = JSON.parse(ctx.request.body);
+    const createdUser = await strapi.entityService.create(
+      `api::client.client`,
+      {
         data: {
           fName,
           lName,
@@ -57,16 +33,10 @@ export default factories.createCoreController("api::client.client", {
             connect: [user.id],
           },
         },
-      });
-
-      return client;
-    } catch (err) {
-      console.log(JSON.stringify(err));
-      const { name, message, details } = err;
-      if (name === "ValidationError") {
-        return ctx.badRequest(message, details);
       }
-    }
+    );
+
+    return createdUser;
   },
   async update(ctx) {
     const {

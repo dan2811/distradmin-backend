@@ -91,6 +91,12 @@
       "relation": "oneToMany",
       "target": "api::chat.chat",
       "mappedBy": "event"
+    },
+    "clients": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "events"
     }
   }
 }
