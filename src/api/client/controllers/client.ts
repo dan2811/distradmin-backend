@@ -19,7 +19,7 @@ export default factories.createCoreController("api::client.client", {
     }
   },
   async create(ctx) {
-    const user = await createUser(ctx, "client");
+    const user = await createUser(ctx, "Client");
     console.log("THIS SHOULD BE JSON", ctx.request.body);
     const { fName, lName, phone } = JSON.parse(ctx.request.body);
     const createdUser = await strapi.entityService.create(

@@ -1,14 +1,14 @@
 import { UserRole } from "../types";
 
-export const createUser = async (ctx, roleToCreate: "musician" | "client") => {
-  const { email, password, fName, lName, phone } = JSON.parse(ctx.request.body);
+export const createUser = async (ctx, roleToCreate: "Musician" | "Client") => {
+  const { email, password, fName, lName, phone } = ctx.request.body.data;
+
   const { id: adminId } = ctx.state.user;
 
-  console.table({ fName, lName });
-
   console.log(
-    `Admin with ID: ${adminId} is creating a new ${roleToCreate} called ${fName} ${lName} with email: ${email}`
+    `Admin with ID: ${adminId} is creating a new ${roleToCreate} called ${fName} ${lName}`
   );
+  console.table({ fName, lName, phone, email });
 
   try {
     const allRoles: UserRole[] = await strapi.plugins[

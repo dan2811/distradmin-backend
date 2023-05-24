@@ -18,32 +18,36 @@ export default factories.createCoreController("api::musician.musician", {
     }
   },
   async create(ctx) {
-    console.log("THIS SHOULD BE A JSON OBJECT: ", ctx.request.body);
-    const user = await createUser(ctx, "musician");
+    const user = await createUser(ctx, "Musician");
     const { fName, lName, phone, instruments, location, notes, canMD } =
       ctx.request.body.data;
     const instrumentIds = instruments.map((instr) => instr.id);
-    const createdUser = await strapi.entityService.create(
-      `api::musician.musician`,
-      {
-        data: {
-          fName,
-          lName,
-          instruments: {
-            connect: [instrumentIds],
-          },
-          location,
-          notes,
-          canMD,
-          phone,
-          users_permissions_user: {
-            connect: [user.id],
-          },
-        },
-      }
-    );
 
-    return createdUser;
+    try {
+      const createdUser = await strapi.entityService.create(
+        `api::musician.musician`,
+        {
+          data: {
+            fName,
+            lName,
+            instruments: {
+              connect: [...instrumentIds],
+            },
+            location,
+            notes,
+            canMD,
+            phone,
+            users_permissions_user: {
+              connect: [parseInt(user.id)],
+            },
+          },
+        }
+      );
+      return createdUser;
+    } catch (e) {
+      console.log("Error creating the musician: ", e);
+      return ctx.badRequest("Could not create Musician", e);
+    }
   },
   async delete(ctx) {
     //delete the jobs related to the musician to prevent orphaned jobs
