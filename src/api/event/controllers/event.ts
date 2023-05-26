@@ -3,6 +3,7 @@
 import { factories } from "@strapi/strapi";
 import { convertToDataAndTotal, findMyEvents } from "./helpers";
 import { GigEvent } from "../../types";
+import { getUserByClientId } from "../../lib/getUser";
 
 export default factories.createCoreController("api::event.event", {
   async find(ctx) {
@@ -13,6 +14,7 @@ export default factories.createCoreController("api::event.event", {
   async create(ctx) {
     // Calling the default core action
     const { data, meta } = await super.create(ctx);
+
     const newEvent: GigEvent = await strapi.entityService.findOne(
       "api::event.event",
       data.id,
@@ -21,23 +23,19 @@ export default factories.createCoreController("api::event.event", {
       }
     );
 
-    const admins = await strapi.entityService.findMany("api::admin.admin");
+    const clientUserId = await getUserByClientId(newEvent.client.id);
 
-    const adminIDs: { id: number }[] = admins.map((admin) => {
-      return { id: admin.id };
-    });
+    console.log("CLIENT USER ID: ", clientUserId);
+    console.log("ADMIN ID: ", ctx.state.user.id);
 
     try {
       // Create chatroom for client and Admin
-      await strapi.entityService.create("api::client-chat.client-chat", {
+      await strapi.entityService.create("api::chat.chat", {
         data: {
-          client: {
-            set: [{ id: newEvent.client.id }],
-          },
-          admin_users: {
-            set: adminIDs,
-          },
-          messages: null,
+          event: newEvent.id,
+          users_permissions_users: [ctx.state.user.id, clientUserId],
+          name: "Chat",
+          isClientChat: true,
         },
       });
     } catch (error) {

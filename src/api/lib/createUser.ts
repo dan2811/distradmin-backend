@@ -1,7 +1,11 @@
 import { UserRole } from "../types";
 
-export const createUser = async (ctx, roleToCreate: "Musician" | "Client") => {
-  const { email, password, fName, lName, phone } = ctx.request.body.data;
+export const createUser = async (
+  ctx,
+  roleToCreate: "Musician" | "Client",
+  data
+) => {
+  const { email, password, fName, lName, phone } = data;
 
   const { id: adminId } = ctx.state.user;
 

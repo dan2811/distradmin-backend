@@ -57,7 +57,7 @@ export default {
           const users = await getUsersInChat(strapi, chat.id);
           const usersToSendTo = removeUserFromArray(user.id, users);
 
-          if (usersToSendTo.length > 1) {
+          if (usersToSendTo.length >= 1) {
             console.log(
               `USERS TO RECEIVE PUSH NOTIF: ${chat.id}: `,
               usersToSendTo

@@ -18,9 +18,9 @@ export default factories.createCoreController("api::musician.musician", {
     }
   },
   async create(ctx) {
-    const user = await createUser(ctx, "Musician");
-    const { fName, lName, phone, instruments, location, notes, canMD } =
-      ctx.request.body.data;
+    const data = ctx.request.body.data;
+    const user = await createUser(ctx, "Musician", data);
+    const { fName, lName, phone, instruments, location, notes, canMD } = data;
     const instrumentIds = instruments.map((instr) => instr.id);
 
     try {
