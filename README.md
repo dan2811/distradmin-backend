@@ -1,7 +1,7 @@
 
 # Distractions Backend
 
-Strapi is used as the foundation for this project.
+Strapi is used as the foundation for this project. The purpose of this project is to provide a unified backend for the two main distractions applications to use. The strapi UI is to be used by devs only for a small number of one-time tasks, giving us an extra layer of protection against malicuous/accidental data deletion. Admins should complete their daily work using the [admin console](https://github.com/dan2811/distradmin-frontend).
 
 ## 🚀 Socket.io Integration
 
