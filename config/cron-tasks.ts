@@ -51,4 +51,18 @@ export default {
       rule: "0 1 * * *",
     },
   },
+  // sendTestEmail: {
+  //   task: async ({ strapi }) => {
+  //     console.log("sending email!");
+  //     await strapi.plugins["email"].services.email.send({
+  //       to: "djordandrums@gmail.com",
+  //       from: "info@thedistractionsband.co.uk",
+  //       subject: "email from strapi!",
+  //       text: `test text`,
+  //     });
+  //   },
+  //   options: {
+  //     rule: "*/1 * * * *",
+  //   },
+  // },
 };
