@@ -5,6 +5,19 @@
 import { factories } from "@strapi/strapi";
 
 export default factories.createCoreController("api::chat.chat", {
+  async find(ctx) {
+    const { data, meta } = await super.find(ctx);
+    return convertToDataAndTotal(data, meta);
+  },
+  async count(ctx) {
+    try {
+      const { data, meta } = await super.find(ctx);
+      return convertToDataAndTotal(data, meta);
+    } catch (e) {
+      ctx.body = e;
+      return;
+    }
+  },
   async mine(ctx) {
     const { id: userId } = await strapi.plugins[
       "users-permissions"
@@ -84,3 +97,7 @@ export default factories.createCoreController("api::chat.chat", {
     return unreadMessages;
   },
 });
+
+const convertToDataAndTotal = (data, meta) => {
+  return { data, total: meta.pagination.total };
+};
