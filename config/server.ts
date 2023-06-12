@@ -11,4 +11,5 @@ export default ({ env }) => ({
     tasks: cronTasks,
   },
   url: process.env.STRAPI_DEPLOYMENT_URL,
+  proxy: true,
 });
