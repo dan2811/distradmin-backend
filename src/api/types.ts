@@ -51,3 +51,11 @@ export interface GigEvent {
   createdBy: null | string;
   updatedBy: null | string;
 }
+
+export type Payments = Transaction[];
+
+export interface Transaction {
+  id: number;
+  amount: number;
+  date: string;
+}

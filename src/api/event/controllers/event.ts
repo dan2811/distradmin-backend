@@ -50,6 +50,30 @@ export default factories.createCoreController("api::event.event", {
 
     return { data, meta };
   },
+  async update(ctx) {
+    console.log(ctx);
+    const res = await super.update(ctx);
+    console.log("UPDATE EVENT RESULT: ", res);
+    const { payments, gross } = res.data.attributes;
+    const totalPaid = payments.reduce(
+      (accumulator, payment) =>
+        parseInt(accumulator) + parseInt(payment.amount),
+      0
+    );
+    const result = await strapi.entityService.update(
+      "api::event.event",
+      res.data.id,
+      {
+        data: {
+          amountDue: gross - totalPaid,
+        },
+      }
+    );
+
+    console.log("UPDATE AMOUNT DUE RES: ", result);
+
+    return res;
+  },
 
   async mine(ctx) {
     const events = await findMyEvents(ctx);
