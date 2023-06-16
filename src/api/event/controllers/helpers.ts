@@ -102,3 +102,45 @@ export const getBraintreeGateway = () => {
     privateKey: process.env.BRAINTREE_PRIVATE_KEY,
   });
 };
+
+export const saveTransactionToEvent = async (ctx, transaction) => {
+  const { id: userId } = await strapi.plugins[
+    "users-permissions"
+  ].services.jwt.getToken(ctx);
+
+  const [client] = await strapi.entityService.findMany("api::client.client", {
+    filters: {
+      users_permissions_user: {
+        id: userId,
+      },
+    },
+  });
+
+  console.log("client", client);
+
+  const [event] = await strapi.entityService.findMany("api::event.event", {
+    filters: {
+      client: {
+        id: client.id,
+      },
+    },
+  });
+
+  const newTransaction = {
+    id: transaction.transaction.id,
+    date: transaction.transaction.createdAt,
+    amount: transaction.transaction.amount,
+  };
+
+  const updatedEvent = await strapi.entityService.update(
+    "api::event.event",
+    event.id,
+    {
+      data: {
+        payments: [...event.payments, newTransaction],
+      },
+    }
+  );
+
+  return updatedEvent;
+};

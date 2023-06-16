@@ -8,6 +8,7 @@ import {
   getBraintreeGateway,
   getNewBraintreeToken,
   getUser,
+  saveTransactionToEvent,
 } from "./helpers";
 import { GigEvent } from "../../types";
 import { getUserByClientId } from "../../lib/getUser";
@@ -246,14 +247,16 @@ export default factories.createCoreController("api::event.event", {
     return await getNewBraintreeToken(gateway, braintreeId);
   },
   async paymentCheckout(ctx) {
-    const { payment_method_nonce, deviceData, amount } = ctx.body;
+    const { payment_method_nonce, deviceData, amount } = ctx.request.body;
+    const raw = ctx.request.body[Symbol.for("unparsedBody")];
+    console.log("BODY: ", raw);
+    let res;
 
     const gateway = getBraintreeGateway();
 
     gateway.transaction.sale(
       {
-        //amount format is "10.00"
-        amount: amount.toString(),
+        amount: amount,
         paymentMethodNonce: payment_method_nonce,
         deviceData,
         options: {
@@ -261,9 +264,16 @@ export default factories.createCoreController("api::event.event", {
         },
       },
       (err, result) => {
+        if (result.success) {
+          saveTransactionToEvent(ctx, result);
+          res = result;
+        }
         console.log("RESULT: ", result);
         console.log("error: ", err);
+        throw new Error(err);
       }
     );
+
+    return res;
   },
 });
