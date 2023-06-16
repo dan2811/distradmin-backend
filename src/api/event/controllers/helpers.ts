@@ -1,3 +1,5 @@
+const braintree = require("braintree");
+
 export const findMyEvents = async (ctx) => {
   const { id: userId } = await strapi.plugins[
     "users-permissions"
@@ -90,4 +92,13 @@ export const createNewBraintreeCustomer = async (gateway, ctx) => {
   await saveBraintreeIdToUserModel(ctx, customer.customer.id);
 
   return customer;
+};
+
+export const getBraintreeGateway = () => {
+  return new braintree.BraintreeGateway({
+    environment: braintree.Environment.Sandbox,
+    merchantId: process.env.BRAINTREE_MERCHANT_ID,
+    publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+    privateKey: process.env.BRAINTREE_PRIVATE_KEY,
+  });
 };
