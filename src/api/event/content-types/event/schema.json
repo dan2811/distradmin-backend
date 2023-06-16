@@ -97,6 +97,10 @@
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
       "mappedBy": "events"
+    },
+    "depositDueDate": {
+      "type": "date",
+      "required": true
     }
   }
 }

@@ -18,11 +18,11 @@
     },
     "start": {
       "type": "time",
-      "required": true
+      "required": false
     },
     "end": {
       "type": "time",
-      "required": true
+      "required": false
     },
     "songs": {
       "type": "relation",
