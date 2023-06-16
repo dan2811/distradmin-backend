@@ -38,3 +38,56 @@ export const findMyEvents = async (ctx) => {
 export const convertToDataAndTotal = (data, meta) => {
   return { data, total: meta.pagination.total };
 };
+
+export const saveBraintreeIdToUserModel = async (ctx, braintreeId) => {
+  const { id: userId } = await strapi.plugins[
+    "users-permissions"
+  ].services.jwt.getToken(ctx);
+
+  const savedUser = await strapi.entityService.update(
+    "plugin::users-permissions.user",
+    userId,
+    {
+      data: {
+        braintreeId,
+      },
+    }
+  );
+
+  return savedUser;
+};
+
+export const getUser = async (ctx) => {
+  const { id: userId } = await strapi.plugins[
+    "users-permissions"
+  ].services.jwt.getToken(ctx);
+
+  const user = await strapi.entityService.findOne(
+    "plugin::users-permissions.user",
+    userId
+  );
+
+  return user;
+};
+
+export const getNewBraintreeToken = async (gateway, customerId) => {
+  const clientToken = await gateway.clientToken.generate({
+    customerId,
+  });
+
+  return clientToken;
+};
+
+export const createNewBraintreeCustomer = async (gateway, ctx) => {
+  const { fName, lName, email } = ctx.state.user;
+
+  const customer = await gateway.customer.create({
+    firstName: fName,
+    lastName: lName,
+    email: email,
+  });
+
+  await saveBraintreeIdToUserModel(ctx, customer.customer.id);
+
+  return customer;
+};

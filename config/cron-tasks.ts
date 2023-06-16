@@ -1,3 +1,5 @@
+const braintree = require("braintree");
+
 export default {
   lockClientEditingForUpcomingEvents: {
     task: async ({ strapi }) => {

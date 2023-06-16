@@ -88,6 +88,10 @@
       "relation": "manyToMany",
       "target": "api::event.event",
       "inversedBy": "clients"
+    },
+    "braintreeId": {
+      "type": "string",
+      "unique": true
     }
   }
 }

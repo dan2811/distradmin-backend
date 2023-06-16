@@ -1,9 +1,16 @@
 "use strict";
 
 import { factories } from "@strapi/strapi";
-import { convertToDataAndTotal, findMyEvents } from "./helpers";
+import {
+  convertToDataAndTotal,
+  createNewBraintreeCustomer,
+  findMyEvents,
+  getNewBraintreeToken,
+  getUser,
+} from "./helpers";
 import { GigEvent } from "../../types";
 import { getUserByClientId } from "../../lib/getUser";
+const braintree = require("braintree");
 
 export default factories.createCoreController("api::event.event", {
   async find(ctx) {
@@ -227,5 +234,20 @@ export default factories.createCoreController("api::event.event", {
         },
       ],
     };
+  },
+  async braintreeToken(ctx) {
+    const { braintreeId } = await getUser(ctx);
+    const gateway = new braintree.BraintreeGateway({
+      environment: braintree.Environment.Sandbox,
+      merchantId: process.env.BRAINTREE_MERCHANT_ID,
+      publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+      privateKey: process.env.BRAINTREE_PRIVATE_KEY,
+    });
+
+    if (!braintreeId) {
+      const braintreeCustomer = await createNewBraintreeCustomer(gateway, ctx);
+      return await getNewBraintreeToken(gateway, braintreeCustomer.id);
+    }
+    return await getNewBraintreeToken(gateway, braintreeId);
   },
 });
